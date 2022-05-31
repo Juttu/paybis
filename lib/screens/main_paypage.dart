@@ -26,13 +26,7 @@ class _MainPayPageState extends State<MainPayPage> {
         @override
         Widget build(BuildContext context) {
           return SlidingUpPanel(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24.0),
-          topRight: Radius.circular(24.0),
-        ),
-        maxHeight: 330,
-        minHeight: 200,
-        panel: InsideWidget(),
+       
         // scrollController: scrollController,
 
         body: Pay(),

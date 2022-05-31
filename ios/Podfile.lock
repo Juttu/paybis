@@ -1,6 +1,8 @@
 PODS:
   - aesthetic_dialogs (0.0.1):
     - Flutter
+  - contacts_service (0.2.2):
+    - Flutter
   - Flutter (1.0.0)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
@@ -13,6 +15,7 @@ PODS:
 
 DEPENDENCIES:
   - aesthetic_dialogs (from `.symlinks/plugins/aesthetic_dialogs/ios`)
+  - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - Flutter (from `Flutter`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
@@ -24,6 +27,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   aesthetic_dialogs:
     :path: ".symlinks/plugins/aesthetic_dialogs/ios"
+  contacts_service:
+    :path: ".symlinks/plugins/contacts_service/ios"
   Flutter:
     :path: Flutter
   path_provider_ios:
@@ -33,6 +38,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   aesthetic_dialogs: a5f6a847f4820321f7d2eadf80f36d5d558777f8
+  contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
