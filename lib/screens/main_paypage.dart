@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:ui/screens/pay_page.dart';
-import 'package:ui/screens/inside.dart';
+import 'package:ui/extra/inside.dart';
 
 class MainPayPage extends StatefulWidget {
   const MainPayPage({Key? key}) : super(key: key);

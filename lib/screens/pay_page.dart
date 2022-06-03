@@ -41,6 +41,7 @@ class _PayState extends State<Pay> {
         },
         controller: _pc1,
         minHeight: 0,
+        maxHeight: 800,
         color: Colors
             .transparent, 
         panel: Container(
@@ -83,7 +84,7 @@ class _PayState extends State<Pay> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey[200],
                         ),
-                        child: SvgPicture.asset('assets/svg/back_icon.svg'),
+                        child: SvgPicture.asset('/Users/juttugajendraanurag/Desktop/ui/assets/svg/back_icon.svg'),
                       ),
                     ]),
               ),
@@ -97,18 +98,18 @@ class _PayState extends State<Pay> {
                     children: <Widget>[
                       UserIcon(
                           name: "Juttu",
-                          iconimage: "assets/images/user_image1.png"),
+                          iconimage: "/Users/juttugajendraanurag/Desktop/ui/assets/images/user_image1.png"),
                       Container(
                         margin: EdgeInsets.only(bottom: 30),
                         padding: EdgeInsets.all(18),
                         child: Image.asset(
-                          'assets/images/arrow_front.png',
+                          '/Users/juttugajendraanurag/Desktop/ui/assets/images/arrow_front.png',
                           color: Colors.white,
                         ),
                       ),
                       UserIcon(
                           name: "Canteen",
-                          iconimage: "assets/images/user_image2.jpeg"),
+                          iconimage: "/Users/juttugajendraanurag/Desktop/ui/assets/images/user_image2.jpeg"),
                     ]),
               ),
               Container(

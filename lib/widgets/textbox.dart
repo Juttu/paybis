@@ -30,39 +30,56 @@ class TextBox extends StatelessWidget {
             ),
           )),
       SizedBox(width: 10),
-      Expanded(
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                padding: EdgeInsets.only(top: 4),
-                child: TextField(
-                  style: GoogleFonts.lato(fontSize: 36, color: Colors.white),
-                  cursorHeight: 40,
-                  cursorColor: Colors.white,
-                  cursorWidth: 2.5,
-                  cursorRadius: Radius.circular(20),
-                  decoration: InputDecoration.collapsed(
-
-                      // your code here
-
-                      hintText: hint,
-                      hintStyle: TextStyle(color: Colors.grey[400])),
-                ),
-              ),
-            ),
-            Container(
-              child: Divider(
-                height: 5,
-                thickness: 3,
-                // indent: 20,
-                endIndent: 0,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
+      TextBoxInside(
+        hint: hint,
+        bar_color: 0xffffffff,
       ),
     ]);
+  }
+}
+
+class TextBoxInside extends StatelessWidget {
+  final int bar_color;
+
+  const TextBoxInside({Key? key, required this.hint, required this.bar_color})
+      : super(key: key);
+
+  final String hint;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(top: 4),
+              child: TextField(
+                style: GoogleFonts.lato(fontSize: 36, color: Color(bar_color)),
+                cursorHeight: 40,
+                cursorColor: Colors.white,
+                cursorWidth: 2.5,
+                cursorRadius: Radius.circular(20),
+                decoration: InputDecoration.collapsed(
+
+                    // your code here
+
+                    hintText: hint,
+                    hintStyle: TextStyle(color: Colors.grey[400])),
+              ),
+            ),
+          ),
+          Container(
+            child: Divider(
+              height: 5,
+              thickness: 3,
+              // indent: 20,
+              endIndent: 0,
+              color: Color(bar_color),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

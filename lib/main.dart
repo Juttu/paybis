@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ui/screens/dynamic.dart';
-import 'package:ui/screens/homescreen.dart';
-import 'package:ui/screens/verification.dart';
-import 'package:ui/screens/fur.dart';
+import 'package:ui/extra/dynamic.dart';
+import 'package:ui/extra/homescreen.dart';
+import 'package:ui/extra/verification.dart';
+import 'package:ui/extra/fur.dart';
 import 'package:ui/screens/allbuttons.dart';
 void main() {
   runApp(const MyApp());

@@ -7,7 +7,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:ui/models/recommended_model.dart';
 import 'package:ui/models/popular_model.dart';
 
-import 'package:ui/screens/verification.dart';
+import 'package:ui/extra/verification.dart';
 import 'package:ui/data/data.dart';
 import 'package:ui/models/user.dart';
 
