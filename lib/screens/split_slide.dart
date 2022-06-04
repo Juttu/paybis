@@ -1,10 +1,16 @@
-import 'package:contacts_app/app-contact.class.dart';
-import 'package:contacts_app/components/contacts-list.dart';
+import 'package:payBISUI/app-contact.class.dart';
+import 'package:payBISUI/components/contacts-list.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../widgets/searchbar.dart';
+
 void main() => runApp(SplitSlide());
+
+var c = 25;
+List<AppContact> contactsFiltered = [];
+GlobalKey<_SplitPeopleState> textGlobalKey = GlobalKey<_SplitPeopleState>();
 
 class SplitSlide extends StatelessWidget {
   @override
@@ -30,7 +36,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<AppContact> contacts = [];
-  List<AppContact> contactsFiltered = [];
   Map<String, Color> contactsColorMap = new Map();
   TextEditingController searchController = new TextEditingController();
   bool contactsLoaded = false;
@@ -45,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (await Permission.contacts.request().isGranted) {
       getAllContacts();
       searchController.addListener(() {
+        print("listner");
         filterContacts();
       });
     }
@@ -57,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   getAllContacts() async {
-    List colors = [Colors.green, Colors.indigo, Colors.yellow, Colors.orange];
+    List colors = [Colors.green, Colors.indigo, Colors.yellow, Colors.blue];
     int colorIndex = 0;
     List<AppContact> _contacts =
         (await ContactsService.getContacts()).map((contact) {
@@ -100,6 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
     setState(() {
+      // print('${[_contacts.length, "Length"]}');
+      // print('${[contactsFiltered.length, "Length"]}');
+
       contactsFiltered = _contacts;
     });
   }
@@ -108,25 +117,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     bool isSearching = searchController.text.isNotEmpty;
     bool listItemsExist =
-        ((isSearching == true && contactsFiltered.length > 0) ||
-            (isSearching != true && contacts.length > 0));
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(20),
+        ((isSearching == true && contactsFiltered.length >= 0) ||
+            (isSearching != true && contacts.length >= 0));
+    return Material(
+      child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                    labelText: 'Search',
-                    border: new OutlineInputBorder(
-                        borderSide: new BorderSide(
-                            color: Theme.of(context).primaryColor)),
-                    prefixIcon: Icon(Icons.search,
-                        color: Theme.of(context).primaryColor)),
-              ),
+            SplitPeople(
+              key: textGlobalKey,
             ),
+            SearchBar(searchController: searchController),
             contactsLoaded == true
                 ? // if the contacts have not been loaded yet
                 listItemsExist == true
@@ -137,7 +137,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         contacts:
                             isSearching == true ? contactsFiltered : contacts,
-                      )
+                        isSearching: isSearching,
+                        searchController: searchController,
+                        contactsFiltered: contactsFiltered)
                     : Container(
                         padding: EdgeInsets.only(top: 40),
                         child: Text(
@@ -155,6 +157,42 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class SplitPeople extends StatefulWidget {
+  const SplitPeople({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  State<SplitPeople> createState() => _SplitPeopleState();
+}
+
+class _SplitPeopleState extends State<SplitPeople> {
+  void setstate_function() {
+    setState(() {});
+    // print("SETSTATE");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ListView.builder(
+        padding: EdgeInsets.zero,
+        physics: ClampingScrollPhysics(),
+
+        shrinkWrap: true,
+        // controller: sc,
+        itemCount: splitfields.length,
+        itemBuilder: (BuildContext context, int i) {
+          return Container(
+            padding: const EdgeInsets.all(2),
+            child: splitfields[i],
+          );
+        },
       ),
     );
   }

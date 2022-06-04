@@ -1,5 +1,5 @@
-import 'package:contacts_app/screens/pay_page.dart';
-import 'package:contacts_app/screens/split_slide.dart';
+import 'package:payBISUI/screens/pay_page.dart';
+import 'package:payBISUI/screens/split_slide.dart';
 import 'package:flutter/material.dart';
 
 void main() {

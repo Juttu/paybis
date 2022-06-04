@@ -1,5 +1,5 @@
-import 'package:contacts_app/app-contact.class.dart';
-import 'package:contacts_app/utils/get-color-gradient.dart';
+import 'package:payBISUI/app-contact.class.dart';
+import 'package:payBISUI/utils/get-color-gradient.dart';
 import 'package:flutter/material.dart';
 
 class ContactAvatar extends StatelessWidget {
