@@ -17,7 +17,6 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  contacts_service: ^0.4.6
   permission_handler: ^5.0.1+1
   flutter:
     sdk: flutter
@@ -32,6 +31,7 @@ dependencies:
   intl: ^0.17.0
   flutter_switch: ^0.3.2
   sliding_up_panel: ^2.0.0+1
+  contacts_service: ^0.6.3
 
 dev_dependencies:
   flutter_test:

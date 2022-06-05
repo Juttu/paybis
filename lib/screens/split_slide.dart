@@ -176,6 +176,7 @@ class _SplitPeopleState extends State<SplitPeople> {
     setState(() {});
     // print("SETSTATE");
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -190,7 +191,16 @@ class _SplitPeopleState extends State<SplitPeople> {
         itemBuilder: (BuildContext context, int i) {
           return Container(
             padding: const EdgeInsets.all(2),
-            child: splitfields[i],
+            child: Row(
+              children: <Widget>[
+                splitfields[i],
+                IconButton(
+                    onPressed: () {
+                      deleteSplit(splitfields[i].name);
+                    },
+                    icon: Icon(Icons.close))
+              ],
+            ),
           );
         },
       ),

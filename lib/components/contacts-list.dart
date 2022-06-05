@@ -7,6 +7,36 @@ import 'package:payBISUI/screens/split_slide.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 List<SplitField> splitfields = [];
+List items = [];
+List items_filtered = [];
+
+GlobalKey<_ListofContactsState> textGlobalKey_contacts = GlobalKey<_ListofContactsState>();
+
+
+deleteSplit(name) {
+  print(name);
+  int c1 = 0;
+  var toRemove = [];
+  splitfields.forEach((e) {
+    if (e.name == name) {
+      toRemove.add(e);
+    }
+    c++;
+  });
+  items.forEach((element) {
+    if (element["name"] == name) {
+      element["value"] = false;
+    }
+    // print(element);
+  });
+
+  splitfields.removeWhere((e) => toRemove.contains(e));
+  textGlobalKey.currentState.setstate_function();
+    textGlobalKey_contacts.currentState.set_state_fun();
+
+
+  print(splitfields.length);
+}
 
 class ContactsList extends StatefulWidget {
   bool isSearching;
@@ -30,23 +60,47 @@ class ContactsList extends StatefulWidget {
 
 class _ContactsListState extends State<ContactsList> {
   bool value = false;
-  List items = [];
-  List items_filtered = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListofContacts(key:textGlobalKey_contacts,widget: widget, items_filtered: items_filtered);
+  }
+}
+
+class ListofContacts extends StatefulWidget {
+  const ListofContacts({
+    Key key,
+    @required this.widget,
+    @required this.items_filtered,
+  }) : super(key: key);
+
+  final ContactsList widget;
+
+  final List items_filtered;
+
+  @override
+  State<ListofContacts> createState() => _ListofContactsState();
+}
+
+class _ListofContactsState extends State<ListofContacts> {
+  void set_state_fun() {
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
-    // print('${[widget.contacts]}');
+    print('${[widget.widget.contacts.length]}');
+
     print("object1111");
 
     addtolist();
-    widget.searchController.addListener(() {
+    widget.widget.searchController.addListener(() {
       print(contactsFiltered.length);
 
       contactsFiltered.forEach((element) {
-        if (widget.searchController.text != "") {
-          getCode(
-              element.info.phones.elementAt(0).value, element.info.displayName);
+        if (widget.widget.searchController.text != "") {
+          getCode(element.info.displayName);
         }
 
         // print(items);
@@ -54,10 +108,10 @@ class _ContactsListState extends State<ContactsList> {
     });
   }
 
-  getCode(code, name) {
+  getCode(name) {
     // print("${code}  ");
     items.forEach((element) {
-      if (element["contact"] == code && element["name"] == name) {
+      if (element["name"] == name) {
         items_filtered.add(element);
 
         // setState(() {
@@ -69,46 +123,37 @@ class _ContactsListState extends State<ContactsList> {
     // items_filtered.clear();
   }
 
+  addSplit(name) {
+    print('${[name]}');
+    splitfields.add(new SplitField(name: name));
+    textGlobalKey.currentState.setstate_function();
+  }
+
   addtolist() {
+    int l = widget.widget.contacts.length;
+    print('he;;;;;;lllooo');
+    // print('${[items.length, widget.contacts]}');
+
     int cnt = 0;
     List _items = [];
-    // print(contacts);
     // var obj;
-    widget.contacts.forEach((element) {
+    widget.widget.contacts.forEach((element) {
       var obj = {
         "id": cnt,
         "value": false,
         "name": element.info.displayName,
-        "contact": element.info.phones.elementAt(0).value
       };
+      // print(cnt);
       cnt++;
       _items.add(obj);
-      // print(_items);
+
+      print(obj);
     });
-    // print('${[_items.length, items.length, widget.contacts]}');
+
     setState(() {
       items = _items;
-      // print('${[_items.length, items.length]}');
+      print('${[_items.length, items.length]}');
     });
-  }
-
-  addSplit(name, contact) {
-    print('${[name, contact]}');
-    splitfields.add(new SplitField(name: name, contact: contact));
-    textGlobalKey.currentState.setstate_function();
-  }
-
-  deleteSplit(name, contact) {
-    int c1 = 0;
-    var toRemove = [];
-    splitfields.forEach((e) {
-      if (e.name == name && e.contact == contact) {
-        toRemove.add(e);
-      }
-      c++;
-    });
-    splitfields.removeWhere((e) => toRemove.contains(e));
-    textGlobalKey.currentState.setstate_function();
   }
 
   @override
@@ -119,12 +164,13 @@ class _ContactsListState extends State<ContactsList> {
           Row(
             children: <Widget>[
               Expanded(
+                // key: listGlobal,
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: widget.contacts.length,
+                  itemCount: widget.widget.contacts.length,
                   itemBuilder: (context, index) {
-                    AppContact contact = widget.contacts[index];
+                    AppContact contact = widget.widget.contacts[index];
 
                     return Material(
                       child: Column(
@@ -134,7 +180,7 @@ class _ContactsListState extends State<ContactsList> {
                               Expanded(
                                 child: ListTile(
                                     onTap: () {
-                                      print(widget.isSearching);
+                                      print(widget.widget.isSearching);
                                     },
                                     title: Text(contact.info.displayName),
                                     subtitle: Text(contact.info.phones.length >
@@ -146,7 +192,7 @@ class _ContactsListState extends State<ContactsList> {
                               Padding(
                                   padding: const EdgeInsets.only(
                                       right: 25.0, bottom: 4),
-                                  child: (widget.isSearching != true)
+                                  child: (widget.widget.isSearching != true)
                                       ? Transform.scale(
                                           scale: 1.3,
                                           child: Row(
@@ -161,13 +207,9 @@ class _ContactsListState extends State<ContactsList> {
                                                 onChanged: (value) {
                                                   (value == true)
                                                       ? addSplit(
-                                                          items[index]["name"],
-                                                          items[index]
-                                                              ["contact"])
+                                                          items[index]["name"])
                                                       : deleteSplit(
-                                                          items[index]["name"],
-                                                          items[index]
-                                                              ["contact"]);
+                                                          items[index]["name"]);
 
                                                   setState(() {
                                                     items[index]["value"] =
@@ -177,9 +219,6 @@ class _ContactsListState extends State<ContactsList> {
                                                   });
                                                 },
                                               ),
-                                              Text(widget.contacts.length
-                                                  .toString()),
-                                              Text(items.length.toString())
                                             ],
                                           ),
                                         )
@@ -193,58 +232,41 @@ class _ContactsListState extends State<ContactsList> {
                                                         BorderRadius.circular(
                                                             90)),
                                                 activeColor: Colors.red,
-                                                value: items_filtered[
-                                                    items_filtered.length -
-                                                        contactsFiltered
-                                                            .length +
-                                                        index]["value"],
+                                                value: widget
+                                                    .items_filtered[widget
+                                                        .items_filtered.length -
+                                                    contactsFiltered.length +
+                                                    index]["value"],
                                                 onChanged: (value) {
                                                   (value == true)
                                                       ? addSplit(
-                                                          items_filtered[items_filtered
+                                                          widget
+                                                              .items_filtered[widget
+                                                                  .items_filtered
                                                                   .length -
                                                               contactsFiltered
                                                                   .length +
                                                               index]["name"],
-                                                          items_filtered[items_filtered
-                                                                  .length -
-                                                              contactsFiltered
-                                                                  .length +
-                                                              index]["contact"])
-                                                      : deleteSplit(
-                                                          items_filtered[items_filtered
-                                                                  .length -
-                                                              contactsFiltered
-                                                                  .length +
-                                                              index]["name"],
-                                                          items_filtered[items_filtered
-                                                                  .length -
-                                                              contactsFiltered
-                                                                  .length +
-                                                              index]["contact"]);
+                                                        )
+                                                      : deleteSplit(widget
+                                                          .items_filtered[widget
+                                                              .items_filtered
+                                                              .length -
+                                                          contactsFiltered
+                                                              .length +
+                                                          index]["name"]);
 
                                                   setState(() {
-                                                    items_filtered[
-                                                            items_filtered
-                                                                    .length -
-                                                                contactsFiltered
-                                                                    .length +
-                                                                index]
-                                                        ["value"] = value;
+                                                    widget.items_filtered[widget
+                                                            .items_filtered
+                                                            .length -
+                                                        contactsFiltered
+                                                            .length +
+                                                        index]["value"] = value;
                                                     // print(selected);
                                                   });
                                                 },
                                               ),
-                                              Material(
-                                                child: Text(
-                                                  widget.contacts.length
-                                                      .toString(),
-                                                  style: GoogleFonts.lato(
-                                                      fontSize: 20,
-                                                      color: Colors.amber),
-                                                ),
-                                              ),
-                                              Text(items.length.toString())
                                             ],
                                           ),
                                         ))
