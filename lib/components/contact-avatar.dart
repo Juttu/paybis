@@ -3,9 +3,13 @@ import 'package:payBISUI/utils/get-color-gradient.dart';
 import 'package:flutter/material.dart';
 
 class ContactAvatar extends StatelessWidget {
-  ContactAvatar(this.contact, this.size);
+  ContactAvatar(this.contact, this.size, this.index);
   final AppContact contact;
   final double size;
+  final int index;
+
+  List img_arr = ["cartoon1.png", "cartoon2.jpeg"];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,8 +22,12 @@ class ContactAvatar extends StatelessWidget {
                 backgroundImage: MemoryImage(contact.info.avatar),
               )
             : CircleAvatar(
-                child: Text(contact.info.initials(),
-                    style: TextStyle(color: Colors.white)),
-                backgroundColor: Colors.transparent));
+                radius: 32,
+                child: ClipRRect(
+                  child: Image.asset(
+                      '/Users/juttugajendraanurag/Desktop/ui/assets/images/${img_arr[0]}'),
+                  borderRadius: BorderRadius.circular(90.0),
+                ),
+              ));
   }
 }

@@ -9,7 +9,7 @@ class TextBox extends StatelessWidget {
     Icons.emoji_food_beverage_rounded
   ];
 
-  TextBox({Key key,  this.hint,  this.icon}) : super(key: key);
+  TextBox({Key key, this.hint, this.icon}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(children: <Widget>[
@@ -41,8 +41,7 @@ class TextBox extends StatelessWidget {
 class TextBoxInside extends StatelessWidget {
   final int bar_color;
 
-  const TextBoxInside({Key key,  this.hint,  this.bar_color})
-      : super(key: key);
+  const TextBoxInside({Key key, this.hint, this.bar_color}) : super(key: key);
 
   final String hint;
 

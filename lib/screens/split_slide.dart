@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+
     getPermissions();
   }
 
@@ -120,6 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ((isSearching == true && contactsFiltered.length >= 0) ||
             (isSearching != true && contacts.length >= 0));
     return Material(
+      color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -176,7 +178,6 @@ class _SplitPeopleState extends State<SplitPeople> {
     setState(() {});
     // print("SETSTATE");
   }
-  
 
   @override
   Widget build(BuildContext context) {
@@ -189,18 +190,27 @@ class _SplitPeopleState extends State<SplitPeople> {
         // controller: sc,
         itemCount: splitfields.length,
         itemBuilder: (BuildContext context, int i) {
-          return Container(
-            padding: const EdgeInsets.all(2),
-            child: Row(
-              children: <Widget>[
-                splitfields[i],
-                IconButton(
-                    onPressed: () {
-                      deleteSplit(splitfields[i].name);
-                    },
-                    icon: Icon(Icons.close))
-              ],
-            ),
+          return Column(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(top:7),
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    IconButton(
+                        onPressed: () {
+                          deleteSplit(splitfields[i].name);
+                        },
+                        icon: Icon(
+                          Icons.close,
+                          color: Color(0xff4F5660),
+                        )),
+                    splitfields[i],
+                    // SizedBox(width: 140),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),

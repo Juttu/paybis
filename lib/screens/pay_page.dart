@@ -11,11 +11,9 @@ import 'package:intl/intl.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-
 import '../widgets/text.dart';
 import '../widgets/usericon.dart';
 import '../widgets/textbox.dart';
-
 
 class Pay extends StatefulWidget {
   const Pay({Key key}) : super(key: key);
@@ -267,7 +265,6 @@ class _PayState extends State<Pay> {
   //     SliderContent();
 }
 
-
 class BarIndicator extends StatelessWidget {
   const BarIndicator({
     Key key,
@@ -275,15 +272,45 @@ class BarIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: Container(
-        width: 50,
-        height: 5,
-        decoration: BoxDecoration(
-          color: Colors.grey[400],
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
+    return Container(
+      // color: Colors.amber,
+      height: 71,
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: 8),
+          Container(
+              // color: Colors.red,
+              // margin: EdgeInsets.only(left:162,bottom: 35),
+              width: 50,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.grey[400],
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              )),
+          SizedBox(height: 8),
+          Container(
+            margin: EdgeInsets.only(left: 20),
+            alignment: Alignment.centerLeft,
+            // color: Colors.red,
+            height: 45,
+            child: Text(
+              'With Friends...',
+              style: GoogleFonts.lexend(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+          Container(
+            child: Divider(
+              height: 5,
+              thickness: 2,
+              // indent: 20,
+              endIndent: 0,
+              color: Color(0xffEBEBEC),
+            ),
+          )
+        ],
       ),
     );
   }
