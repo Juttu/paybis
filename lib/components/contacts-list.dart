@@ -1,9 +1,12 @@
 import 'package:payBISUI/app-contact.class.dart';
+import 'package:payBISUI/data/data.dart';
 import 'package:payBISUI/pages/contact-details.dart';
 import 'package:flutter/material.dart';
 import 'package:payBISUI/widgets/searchbar.dart';
 import 'package:payBISUI/widgets/widgets.dart';
 
+import '../models/user_model.dart';
+import '../widgets/recentswidget.dart';
 import 'contact-avatar.dart';
 import 'package:payBISUI/screens/split_slide.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,6 +14,18 @@ import 'package:google_fonts/google_fonts.dart';
 List<SplitField> splitfields = [];
 List items = [];
 List items_filtered = [];
+List img_arr = [
+  "cartoon1.png",
+  "cartoon2.jpeg",
+  "cartoon3.jpeg",
+  "cartoon4.png",
+  "cartoon5.jpeg",
+  "cartoon6.jpeg",
+  "cartoon7.jpeg",
+  "cartoon8.jpeg",
+  "cartoon9.png",
+  "cartoon10.jpeg",
+];
 
 GlobalKey<_ListofContactsState> textGlobalKey_contacts =
     GlobalKey<_ListofContactsState>();
@@ -31,13 +46,36 @@ deleteSplit(name) {
     }
     // print(element);
   });
+  recentitems.forEach((element1) {
+    if (element1["name"] == name) {
+      print(element1["name"] + "NAMEEEEE");
+      element1["value"] = false;
+      print(element1["value"]);
+    }
+  });
 
   splitfields.removeWhere((e) => toRemove.contains(e));
   textGlobalKey.currentState.setstate_function();
   textGlobalKey_contacts.currentState.set_state_fun();
 
+  textGlobalKey_recents.currentState.recentwidget_setstate();
+
   print(splitfields.length);
   // print(splitfields.)
+}
+
+addSplit(name, imageurl) {
+  print('${[name]}');
+  splitfields.add(new SplitField(name: name, image: imageurl));
+  recentitems.forEach((element1) {
+    if (element1["name"] == name) {
+      print(element1["name"] + "NAMEEEEE");
+      element1["value"] = true;
+      print(element1["value"]);
+    }
+  });
+  textGlobalKey.currentState.setstate_function();
+  textGlobalKey_recents.currentState.recentwidget_setstate();
 }
 
 class ContactsList extends StatefulWidget {
@@ -88,6 +126,8 @@ class ListofContacts extends StatefulWidget {
 }
 
 class _ListofContactsState extends State<ListofContacts> {
+  List<int> final_index = [];
+
   void set_state_fun() {
     setState(() {});
   }
@@ -128,30 +168,43 @@ class _ListofContactsState extends State<ListofContacts> {
     // items_filtered.clear();
   }
 
-  addSplit(name) {
-    print('${[name]}');
-    splitfields.add(new SplitField(name: name));
-    textGlobalKey.currentState.setstate_function();
-  }
-
   addtolist() {
     // print('he;;;;;;lllooo');
     // print('${[items.length, widget.contacts]}');
+    int re = (widget.widget.contacts.length / img_arr.length).toInt();
+    // print(re);
+    int rem = widget.widget.contacts.length - img_arr.length * re;
+    for (int i = 0; i < re; i++) {
+      for (int j = 0; j < img_arr.length; j++) {
+        final_index.add(j);
+      }
+    }
+    if (rem != 0) {
+      for (int k = 0; k < rem; k++) {
+        final_index.add(k);
+      }
+    }
+    // print(final_index);
 
     int cnt = 0;
     List _items = [];
     // var obj;
     widget.widget.contacts.forEach((element) {
-      var obj = {
-        "id": cnt,
-        "value": false,
-        "name": element.info.displayName,
-      };
-      cnt++;
-      _items.add(obj);
-
-      // print(obj);
+      try {
+        var obj = {
+          "id": cnt,
+          "value": false,
+          "name": element.info.displayName,
+          "image":
+              '/Users/juttugajendraanurag/Desktop/ui/assets/images/${img_arr[final_index[cnt]]}'
+        };
+        cnt++;
+        _items.add(obj);
+      } catch (e) {
+        print(e);
+      }
     });
+    print(users_list);
 
     setState(() {
       items = _items;
@@ -169,6 +222,7 @@ class _ListofContactsState extends State<ListofContacts> {
             Expanded(
               // key: listGlobal,
               child: ListView.builder(
+                padding: EdgeInsets.only(top: 10),
                 physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: widget.widget.contacts.length,
@@ -176,28 +230,56 @@ class _ListofContactsState extends State<ListofContacts> {
                   AppContact contact = widget.widget.contacts[index];
 
                   return Material(
+                    // elevation: 5,
+
                     color: Colors.white,
                     child: Column(
                       children: [
                         Row(
                           children: [
                             Expanded(
-                              child: ListTile(
-                                  onTap: () {
-                                    print(widget.widget.isSearching);
-                                  },
-                                  title: Text(contact.info.displayName),
-                                  subtitle: Text(contact.info.phones.length > 0
-                                      ? contact.info.phones.elementAt(0).value
-                                      : ''),
-                                  leading: ContactAvatar(contact, 36, index)),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                      onTap: () {
+                                        recents.add(User(
+                                            name: "anu",
+                                            contact: "ji",
+                                            imageUrl: "hi"));
+                                        print(recents);
+                                      },
+                                      title: Text(
+                                        contact.info.displayName,
+                                        style: GoogleFonts.lexend(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        contact.info.phones.length > 0
+                                            ? contact.info.phones
+                                                .elementAt(0)
+                                                .value
+                                            : '',
+                                        style: GoogleFonts.lexend(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      leading: ContactAvatar(
+                                          contact,
+                                          45,
+                                          widget.widget.contacts.length,
+                                          index)),
+                                ],
+                              ),
                             ),
                             Padding(
                                 padding: const EdgeInsets.only(
                                     right: 25.0, bottom: 4),
                                 child: (widget.widget.isSearching != true)
                                     ? Transform.scale(
-                                        scale: 1.3,
+                                        scale: 1.2,
                                         child: Row(
                                           children: [
                                             Checkbox(
@@ -210,7 +292,8 @@ class _ListofContactsState extends State<ListofContacts> {
                                               onChanged: (value) {
                                                 (value == true)
                                                     ? addSplit(
-                                                        items[index]["name"])
+                                                        items[index]["name"],
+                                                        items[index]["image"])
                                                     : deleteSplit(
                                                         items[index]["name"]);
 
@@ -225,7 +308,7 @@ class _ListofContactsState extends State<ListofContacts> {
                                         ),
                                       )
                                     : Transform.scale(
-                                        scale: 1.3,
+                                        scale: 1.2,
                                         child: Row(
                                           children: [
                                             Checkbox(
@@ -248,6 +331,13 @@ class _ListofContactsState extends State<ListofContacts> {
                                                             contactsFiltered
                                                                 .length +
                                                             index]["name"],
+                                                        widget
+                                                            .items_filtered[widget
+                                                                .items_filtered
+                                                                .length -
+                                                            contactsFiltered
+                                                                .length +
+                                                            index]["image"],
                                                       )
                                                     : deleteSplit(widget
                                                         .items_filtered[widget
@@ -272,6 +362,12 @@ class _ListofContactsState extends State<ListofContacts> {
                                       ))
                           ],
                         ),
+                        Container(
+                          margin: EdgeInsets.only(left: 80),
+                          color: Color(0xffEBEBEC),
+                          height: 1,
+                          width: 1900,
+                        ),
                       ],
                     ),
                   );
@@ -289,9 +385,10 @@ class _ListofContactsState extends State<ListofContacts> {
 class SplitField extends StatelessWidget {
   final String name;
   final String contact;
+  final String image;
   TextEditingController controller = new TextEditingController();
 
-  SplitField({Key key, this.name, this.contact}) : super(key: key);
+  SplitField({Key key, this.name, this.contact, this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -303,10 +400,9 @@ class SplitField extends StatelessWidget {
       child: Row(
         children: <Widget>[
           CircleAvatar(
-            radius: 22,
+            radius: 23,
             child: ClipRRect(
-              child: Image.asset(
-                  '/Users/juttugajendraanurag/Desktop/ui/assets/images/avatar_img.png'),
+              child: Image.asset(image),
               borderRadius: BorderRadius.circular(90),
             ),
           ),
@@ -320,10 +416,6 @@ class SplitField extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                 ),
               )),
-
-          // color: Colors.amber,
-          // child: TextWidget(fontsize: 20, text: name, color: 0xff000000)),
-          // SizedBox(width: 60),
           Container(
               margin: EdgeInsets.only(top: 0),
 
@@ -359,10 +451,11 @@ class SplitField extends StatelessWidget {
                           ),
                         ),
                         Container(
-                            color: Colors.black,
-                            height: 1,
-                            width: 70,
-                            child: Text("hi")),
+                          margin: EdgeInsets.zero,
+                          color: Colors.grey[900],
+                          height: 1.5,
+                          width: 70,
+                        ),
                       ],
                     ),
                   ),

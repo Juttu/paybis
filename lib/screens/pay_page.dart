@@ -297,7 +297,7 @@ class BarIndicator extends StatelessWidget {
               'With Friends...',
               style: GoogleFonts.lexend(
                 fontSize: 22,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),

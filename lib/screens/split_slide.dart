@@ -1,9 +1,13 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:payBISUI/app-contact.class.dart';
 import 'package:payBISUI/components/contacts-list.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:payBISUI/data/data.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../widgets/divider.dart';
+import '../widgets/recentswidget.dart';
 import '../widgets/searchbar.dart';
 
 void main() => runApp(SplitSlide());
@@ -114,6 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  callback() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isSearching = searchController.text.isNotEmpty;
@@ -128,20 +136,29 @@ class _MyHomePageState extends State<MyHomePage> {
             SplitPeople(
               key: textGlobalKey,
             ),
+            SizedBox(height: 15),
+            DividerWidget(),
+            RecentsWidget(key: textGlobalKey_recents),
+            DividerWidget(),
+            SizedBox(height: 15),
             SearchBar(searchController: searchController),
             contactsLoaded == true
                 ? // if the contacts have not been loaded yet
                 listItemsExist == true
                     ? // if we have contacts to show
-                    ContactsList(
-                        reloadContacts: () {
-                          getAllContacts();
-                        },
-                        contacts:
-                            isSearching == true ? contactsFiltered : contacts,
-                        isSearching: isSearching,
-                        searchController: searchController,
-                        contactsFiltered: contactsFiltered)
+                    Container(
+                        margin: EdgeInsets.zero,
+                        child: ContactsList(
+                            reloadContacts: () {
+                              getAllContacts();
+                            },
+                            contacts: isSearching == true
+                                ? contactsFiltered
+                                : contacts,
+                            isSearching: isSearching,
+                            searchController: searchController,
+                            contactsFiltered: contactsFiltered),
+                      )
                     : Container(
                         padding: EdgeInsets.only(top: 40),
                         child: Text(
@@ -193,13 +210,14 @@ class _SplitPeopleState extends State<SplitPeople> {
           return Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(top:7),
+                padding: const EdgeInsets.only(top: 7),
                 child: Row(
                   // mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     IconButton(
                         onPressed: () {
                           deleteSplit(splitfields[i].name);
+
                         },
                         icon: Icon(
                           Icons.close,

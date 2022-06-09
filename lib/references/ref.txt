@@ -1,0 +1,17 @@
+
+TEXT :{
+  Text(
+                name,
+                style: GoogleFonts.lexend(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+
+}
+
+
+
+
+
+
