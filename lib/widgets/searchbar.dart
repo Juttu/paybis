@@ -17,8 +17,8 @@ class SearchBar extends StatelessWidget {
       children: [
         SizedBox(height: 10),
         Container(
-          height: 45,
-          margin: EdgeInsets.only(left: 15, right: 15),
+          height: 36,
+          margin: EdgeInsets.only(left: 16, right: 16),
           decoration: BoxDecoration(
               color: Colors.grey[200],
               borderRadius: BorderRadius.circular(10)),
@@ -29,18 +29,23 @@ class SearchBar extends StatelessWidget {
                 Icon(
                   Icons.search,
                   color: Colors.grey[600],
-                  size: 28,
+                  size: 24,
                 ),
                 SizedBox(width: 10),
                 Container(
                   child: Expanded(
                       child: TextField(
+                        autofocus: true,
+                        keyboardType:TextInputType.emailAddress,
                     controller: searchController,
                     cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black, fontSize: 20),
+                    style: TextStyle(color: Colors.black, fontSize: 17),
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Search Contacts"),
+                        hintText: "Search Contacts",
+                        hintStyle: TextStyle(
+                          color: Color(0xff3C3C43)
+                        )),
                   )),
                 )
               ]),

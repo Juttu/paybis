@@ -31,7 +31,7 @@ GlobalKey<_ListofContactsState> textGlobalKey_contacts =
     GlobalKey<_ListofContactsState>();
 
 deleteSplit(name) {
-  print(name);
+  // print(name);
   int c1 = 0;
   var toRemove = [];
   splitfields.forEach((e) {
@@ -48,9 +48,9 @@ deleteSplit(name) {
   });
   recentitems.forEach((element1) {
     if (element1["name"] == name) {
-      print(element1["name"] + "NAMEEEEE");
+      // print(element1["name"] + "NAMEEEEE");
       element1["value"] = false;
-      print(element1["value"]);
+      // print(element1["value"]);
     }
   });
 
@@ -60,19 +60,22 @@ deleteSplit(name) {
 
   textGlobalKey_recents.currentState.recentwidget_setstate();
 
-  print(splitfields.length);
+  // print(splitfields.length);
   // print(splitfields.)
 }
 
 addSplit(name, imageurl) {
-  print('${[name]}');
+  // print('${[name]}');
   splitfields.add(new SplitField(name: name, image: imageurl));
   recentitems.forEach((element1) {
     if (element1["name"] == name) {
-      print(element1["name"] + "NAMEEEEE");
+      // print(element1["name"] + "NAMEEEEE");
       element1["value"] = true;
-      print(element1["value"]);
+      // print(element1["value"]);
     }
+  });
+  splitfields.forEach((element) {
+    element.myController.text = "1";
   });
   textGlobalKey.currentState.setstate_function();
   textGlobalKey_recents.currentState.recentwidget_setstate();
@@ -135,13 +138,13 @@ class _ListofContactsState extends State<ListofContacts> {
   @override
   void initState() {
     super.initState();
-    print('${[widget.widget.contacts.length]}');
+    // print('${[widget.widget.contacts.length]}');
 
-    print("object1111");
+    // print("object1111");
 
     addtolist();
     widget.widget.searchController.addListener(() {
-      print(contactsFiltered.length);
+      // print(contactsFiltered.length);
 
       contactsFiltered.forEach((element) {
         if (widget.widget.searchController.text != "") {
@@ -204,11 +207,11 @@ class _ListofContactsState extends State<ListofContacts> {
         print(e);
       }
     });
-    print(users_list);
+    // print(users_list);
 
     setState(() {
       items = _items;
-      print('${[_items.length, items.length]}');
+      // print('${[_items.length, items.length]}');
     });
   }
 
@@ -242,11 +245,7 @@ class _ListofContactsState extends State<ListofContacts> {
                                 children: [
                                   ListTile(
                                       onTap: () {
-                                        recents.add(User(
-                                            name: "anu",
-                                            contact: "ji",
-                                            imageUrl: "hi"));
-                                        print(recents);
+                                        // print(recents);
                                       },
                                       title: Text(
                                         contact.info.displayName,
@@ -386,7 +385,7 @@ class SplitField extends StatelessWidget {
   final String name;
   final String contact;
   final String image;
-  TextEditingController controller = new TextEditingController();
+  TextEditingController myController = new TextEditingController();
 
   SplitField({Key key, this.name, this.contact, this.image}) : super(key: key);
 
@@ -409,6 +408,7 @@ class SplitField extends StatelessWidget {
           SizedBox(width: 16),
           Container(
               width: 120,
+              height: 23,
               child: Text(
                 name,
                 style: GoogleFonts.lexend(
@@ -440,6 +440,8 @@ class SplitField extends StatelessWidget {
                           // padding: EdgeInsets.only(bottom: 0),
 
                           child: TextField(
+                            controller: myController,
+                            keyboardType: TextInputType.numberWithOptions(),
                             // cursorHeight: 15,
                             cursorColor: Colors.black,
                             style: TextStyle(

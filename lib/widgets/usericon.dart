@@ -19,7 +19,7 @@ class UserIcon extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             CircleAvatar(
-              radius: 30,
+              radius: 26,
               backgroundColor: Colors.grey[200],
               backgroundImage: AssetImage(
                 iconimage,
@@ -28,7 +28,7 @@ class UserIcon extends StatelessWidget {
             ),
             Text(
               name,
-              style: GoogleFonts.lato(fontSize: 21, color: Color(0xffffffff)),
+              style: GoogleFonts.lato(fontSize: 18, color: Color(0xffffffff)),
             )
           ]),
     );

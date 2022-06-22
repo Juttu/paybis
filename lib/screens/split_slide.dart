@@ -4,6 +4,7 @@ import 'package:payBISUI/components/contacts-list.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:payBISUI/data/data.dart';
+import 'package:payBISUI/widgets/split_slider/latotext.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../widgets/divider.dart';
@@ -55,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (await Permission.contacts.request().isGranted) {
       getAllContacts();
       searchController.addListener(() {
-        print("listner");
+        // print("listner");
         filterContacts();
       });
     }
@@ -138,8 +139,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 15),
             DividerWidget(),
-            RecentsWidget(key: textGlobalKey_recents),
+            RecentsWidget(key: textGlobalKey_recents,),
             DividerWidget(),
+            LatoText(name: "Contacts",),
             SizedBox(height: 15),
             SearchBar(searchController: searchController),
             contactsLoaded == true

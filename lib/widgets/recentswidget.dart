@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:payBISUI/components/contacts-list.dart';
+import 'package:payBISUI/widgets/split_slider/latotext.dart';
 
 import '../data/data.dart';
 
@@ -26,10 +27,11 @@ class _RecentsWidgetState extends State<RecentsWidget> {
   void initState() {
     super.initState();
     addtolist_recents(recents);
+    
   }
 
   void recentwidget_setstate() {
-    print("RECENTWIDGET");
+    // print("RECENTWIDGET");
     setState(() {});
   }
 
@@ -38,7 +40,7 @@ class _RecentsWidgetState extends State<RecentsWidget> {
     List _recentitems = [];
     recents.forEach((element) {
       try {
-        print(element.name);
+        // print(element.name);
         var obj1 = {
           "id": count,
           "name": element.name,
@@ -54,7 +56,7 @@ class _RecentsWidgetState extends State<RecentsWidget> {
     });
     setState(() {
       recentitems = _recentitems;
-      print(recentitems);
+      // print(recentitems);
     });
   }
 
@@ -64,21 +66,7 @@ class _RecentsWidgetState extends State<RecentsWidget> {
       width: double.maxFinite,
       child: Column(
         children: [
-          Container(
-              alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(top: 18),
-              // color: Colors.amber,
-              height: 25,
-              child: Padding(
-                padding: EdgeInsets.only(left: 19),
-                child: Text(
-                  "Recent",
-                  style: GoogleFonts.lato(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              )),
+          LatoText(name: "Recent"),
           Container(
             margin: EdgeInsets.only(top: 15, left: 15),
             color: Colors.white,
@@ -135,6 +123,8 @@ class _RecentsWidgetState extends State<RecentsWidget> {
     );
   }
 }
+
+
 
 class CircleWidget extends StatelessWidget {
   final int index;

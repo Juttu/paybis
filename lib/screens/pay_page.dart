@@ -11,9 +11,12 @@ import 'package:intl/intl.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../widgets/split_slider/latotext.dart';
 import '../widgets/text.dart';
 import '../widgets/usericon.dart';
 import '../widgets/textbox.dart';
+
+import 'package:flutter/services.dart';
 
 class Pay extends StatefulWidget {
   const Pay({Key key}) : super(key: key);
@@ -27,14 +30,18 @@ class _PayState extends State<Pay> {
   bool val = false;
   final double tabBarHeight = 10;
   PanelController _pc1 = new PanelController();
+  static const IconData arrow_back_ios_new_rounded =
+      IconData(0xf570, fontFamily: 'MaterialIcons');
 
   @override
   Widget build(BuildContext context) {
     bool value = false;
     return Scaffold(
-      backgroundColor: Color(0xff1c1c1e),
+      backgroundColor: Color(0xff000000),
       body: SlidingUpPanel(
         onPanelClosed: () {
+          SystemChannels.textInput.invokeMethod('TextInput.hide');
+
           print("closed");
           setState(() {
             val = false;
@@ -70,78 +77,92 @@ class _PayState extends State<Pay> {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               Container(
-                // color: Colors.red,
-                height: 57.6,
-                margin: EdgeInsets.only(top: 18, left: 28.8, right: 28.8),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      //Custom Navigation Drawer and Search Button
-                      Container(
-                        height: 45,
-                        width: 45,
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey[200],
-                        ),
-                        child: SvgPicture.asset(
-                            '/Users/juttugajendraanurag/Desktop/ui/assets/svg/back_icon.svg'),
-                      ),
-                    ]),
-              ),
-              Container(
                 height: 88,
-
-                // color: Colors.red,
-                margin: EdgeInsets.only(right: 50, left: 80),
+                // color: Colors.amber,
                 child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      UserIcon(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      child: IconButton(
+                        iconSize: 35,
+                        color: Colors.white,
+                        icon: Icon(arrow_back_ios_new_rounded),
+                        onPressed: () {},
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 25),
+                      // color: Colors.white,
+                      child: UserIcon(
                           name: "Juttu",
                           iconimage:
-                              "/Users/juttugajendraanurag/Desktop/ui/assets/images/user_image1.png"),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 30),
-                        padding: EdgeInsets.all(18),
-                        child: Image.asset(
-                          '/Users/juttugajendraanurag/Desktop/ui/assets/images/arrow_front.png',
-                          color: Colors.white,
-                        ),
+                              "/Users/juttugajendraanurag/Desktop/ui/assets/images/cartoon5.jpeg"),
+                    ),
+                    Container(
+                      // color: Colors.amber,
+                      margin: EdgeInsets.only(bottom: 30),
+                      padding: EdgeInsets.all(12),
+                      child: Image.asset(
+                        '/Users/juttugajendraanurag/Desktop/ui/assets/images/arrow_front.png',
+                        color: Colors.white,
                       ),
-                      UserIcon(
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 29),
+                      child: UserIcon(
                           name: "Canteen",
                           iconimage:
-                              "/Users/juttugajendraanurag/Desktop/ui/assets/images/user_image2.jpeg"),
-                    ]),
+                              "/Users/juttugajendraanurag/Desktop/ui/assets/images/cartoon9.png"),
+                    ),
+                    Ink(
+                        // decoration: BoxDecoration(
+                        //   border: Border.all(width: 1.0, color: Color(0xFFFFFFFF)),
+                        //   borderRadius: BorderRadius.all(Radius.circular(90.0)),
+                        // ),
+                        child: IconButton(
+                      iconSize: 35,
+                      color: Colors.white,
+                      icon: Icon(Icons.more_horiz),
+                      onPressed: () {},
+                    ))
+                  ],
+                ),
               ),
               Container(
-                height: 55,
-                margin: EdgeInsets.only(top: 75, left: 77, right: 80),
-                // color: Colors.grey[200],
-                child: TextBox(hint: "0", icon: 0),
-              ),
-              Container(
-                height: 55,
-                margin: EdgeInsets.only(top: 24, left: 77, right: 80),
-                // color: Colors.grey[200],
-                child: TextBox(hint: "For ?", icon: 1),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                margin: EdgeInsets.only(top: 28, left: 59, right: 59),
+                height: 260,
+                width: 299,
+                // color: Colors.amber,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xff1C1C1E), width: 2),
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  color: Color(0xff101010),
+                ),
+                child: Column(children: [
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(left: 18, top: 30, right: 22),
+                    child: TextBox(hint: "0", icon: 0, inputType: false),
+                  ),
+                  Container(
+                    height: 55,
+                    margin: EdgeInsets.only(top: 26, left: 18, right: 22),
+                    // color: Colors.grey[200],
+                    child: TextBox(hint: "For ?", icon: 1, inputType: true),
+                  ),
                   Container(
                     // color: Colors.amber,
-                    margin: EdgeInsets.only(top: 40, left: 120, right: 100),
+                    margin: EdgeInsets.only(top: 30),
                     alignment: Alignment.center,
-                    height: 32,
+                    // height: 32,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           TextWidget(fontsize: 24, text: "Split Bill ?"),
                           SizedBox(width: 18),
-                          Expanded(
+                          Container(
+                            width: 55,
                             child: FlutterSwitch(
                               activeColor: Color(0xffF23467),
                               inactiveColor: Color(0xffE0E0E0),
@@ -156,6 +177,9 @@ class _PayState extends State<Pay> {
                               width: 400,
                               showOnOff: true,
                               onToggle: (val) {
+                                SystemChannels.textInput
+                                    .invokeMethod('TextInput.hide');
+
                                 setState(() {
                                   if (val) {
                                     print(val);
@@ -169,7 +193,63 @@ class _PayState extends State<Pay> {
                           ),
                         ]),
                   ),
-                ],
+                ]),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 70),
+                color: Color(0xff525252),
+                height: 0.5,
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 1),
+                height: 60,
+                // color: Colors.amber,
+                child: Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 42,
+                      width: 122,
+                      margin: EdgeInsets.only(left: 11),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        color: Color(0xffffffff),
+                      ),
+                      child: Text(
+                        "Credit",
+                        style: GoogleFonts.lato(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    VerticalDivider(
+                      color: Color(0xff525252),
+                      thickness: 0.5,
+                      indent: 9,
+                      endIndent: 9,
+                    ),
+                    SizedBox(width: 5),
+                    Container(
+                      alignment: Alignment.center,
+                      height: 42,
+                      width: 220,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                        color: Color(0xffF54278),
+                      ),
+                      child: Text(
+                        "Pay",
+                        style: GoogleFonts.lato(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 130, left: 12, right: 12),
