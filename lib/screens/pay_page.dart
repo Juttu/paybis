@@ -88,7 +88,9 @@ class _PayState extends State<Pay> {
                         iconSize: 35,
                         color: Colors.white,
                         icon: Icon(arrow_back_ios_new_rounded),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                     Container(

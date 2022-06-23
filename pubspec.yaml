@@ -34,6 +34,7 @@ dependencies:
   contacts_service: ^0.6.3
   keyboard_actions: "^3.4.7"
   flutter_keyboard_size: ^1.0.0+4
+  flutter_signin_button: ^2.0.0
 
 dev_dependencies:
   flutter_test:
