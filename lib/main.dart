@@ -1,9 +1,9 @@
 import 'package:google_fonts/google_fonts.dart';
-import 'package:payBISUI/screens/login.dart';
-import 'package:payBISUI/screens/pay_page.dart';
-import 'package:payBISUI/screens/payui.dart';
-import 'package:payBISUI/screens/split_slide.dart';
+
 import 'package:flutter/material.dart';
+import 'package:payBISUI/screens/login.dart';
+
+import 'features/bottomnav/presentstion/bottomnav.dart';
 
 void main() {
   runApp(const MyApp());

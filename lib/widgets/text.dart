@@ -6,8 +6,7 @@ class TextWidget extends StatelessWidget {
   final String text;
   // bool m;
   int color;
-  TextWidget(
-      {Key key,  this.fontsize,  this.text,this.color=0xffffffff})
+  TextWidget({Key key, this.fontsize, this.text, this.color = 0xffffffff})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -18,6 +17,29 @@ class TextWidget extends StatelessWidget {
       child: Text(
         text,
         style: GoogleFonts.lato(fontSize: fontsize, color: Color(color)),
+      ),
+    );
+  }
+}
+
+class Lexend extends StatelessWidget {
+  final double fontsize;
+  final String text;
+  int color;
+  int fontweight;
+  Lexend({Key key, this.fontsize, this.text, this.color,@required this.fontweight}) : super(key: key);
+
+  List<FontWeight> _fontweight = [FontWeight.w500, FontWeight.w700,FontWeight.w400,FontWeight.w600];
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text(
+        text,
+        style: GoogleFonts.lexend(
+            fontSize: fontsize,
+            color: Color(color),
+            fontWeight: _fontweight[fontweight]),
       ),
     );
   }

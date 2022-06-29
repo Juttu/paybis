@@ -129,9 +129,10 @@ class _MyHomePageState extends State<MyHomePage> {
     bool listItemsExist =
         ((isSearching == true && contactsFiltered.length >= 0) ||
             (isSearching != true && contacts.length >= 0));
-    return Material(
-      color: Colors.white,
-      child: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Column(
           children: <Widget>[
             SplitPeople(

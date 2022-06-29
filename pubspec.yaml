@@ -35,6 +35,8 @@ dependencies:
   keyboard_actions: "^3.4.7"
   flutter_keyboard_size: ^1.0.0+4
   flutter_signin_button: ^2.0.0
+  keyboard_service: ^2.0.2
+keyboard_service: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -53,9 +55,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/images/
+    - assets/svg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

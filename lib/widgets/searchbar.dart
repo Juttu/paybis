@@ -35,7 +35,7 @@ class SearchBar extends StatelessWidget {
                 Container(
                   child: Expanded(
                       child: TextField(
-                        autofocus: true,
+                        // autofocus: true,
                         keyboardType:TextInputType.emailAddress,
                     controller: searchController,
                     cursorColor: Colors.black,
